@@ -23,7 +23,7 @@ RUN gem install bundler && bundle install
 ADD . ${APP_ROOT}
  
 # 解放ポート
-EXPOSE 3000
+EXPOSE 80
  
 # 環境変数毎のエンドポイント
 ARG RAILS_ENV
