@@ -19,6 +19,7 @@ ADD ./Gemfile Gemfile
 ADD ./Gemfile.lock Gemfile.lock
  
 RUN gem install bundler && bundle install
+RUN yarn install --check-files
  
 ADD . ${APP_ROOT}
  
