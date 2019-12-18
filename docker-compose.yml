@@ -8,6 +8,11 @@ services:
       - "3035:3035"
     volumes:
       - .:/app
+    working_dir: /app
+    entrypoint:
+      - /bin/sh
+      - -c
+      - /app/script/entrypoint_development.sh
     environment:
       RAILS_ENV: development
       RAILS_SERVE_STATIC_FILES: "true"

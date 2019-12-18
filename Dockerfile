@@ -1,7 +1,6 @@
-FROM ruby:2.5.3-alpine
+FROM ruby:2.6.5-alpine
  
-RUN \
-apk add --no-cache --virtual build-dependencies --update \
+RUN apk add --no-cache --virtual build-dependencies --update \
     build-base \
     linux-headers \
     tzdata \
@@ -10,22 +9,9 @@ apk add --no-cache --virtual build-dependencies --update \
     sqlite-dev
  
 ENV APP_ROOT /app
- 
 RUN mkdir ${APP_ROOT}
- 
+ADD . ${APP_ROOT}
 WORKDIR ${APP_ROOT}
- 
-ADD ./Gemfile Gemfile
-ADD ./Gemfile.lock Gemfile.lock
- 
 RUN gem install bundler && bundle install
 RUN yarn install --check-files
  
-ADD . ${APP_ROOT}
- 
-# 解放ポート
-EXPOSE 80
- 
-# 環境変数毎のエンドポイント
-ARG RAILS_ENV
-ENTRYPOINT ["/bin/sh", "-c","/app/script/entrypoint_${RAILS_ENV}.sh" ]
